@@ -1,13 +1,13 @@
 import { createLogger, format, transports } from "winston";
 
-const Logger = createLogger({
+const logger = createLogger({
   transports: [
     new transports.File({ filename: "logs/errors.log", level: "error" }),
     new transports.Console(),
   ],
   format: format.combine(
     format.colorize(),
-    format.timestamp({ format: "DD-MM-YYYY HH:mm:ss" }),
+    format.timestamp({ format: "DD/MM/YYYY hh:mm A" }),
     format.printf(
       (message) =>
         `${message.timestamp} | [${message.level}] : ${message.message}`
@@ -15,4 +15,4 @@ const Logger = createLogger({
   ),
 });
 
-export default Logger;
+export default logger;
