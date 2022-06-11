@@ -1,6 +1,9 @@
 import sequelize from ".";
 import Sequelize from "sequelize";
 
+import User from "./User";
+import Product from "./product";
+
 const CartItem = sequelize.define(
   "cartItem",
   {
@@ -25,5 +28,11 @@ const CartItem = sequelize.define(
   },
   { timestamps: false }
 );
+
+User.hasMany(CartItem);
+CartItem.belongsTo(User);
+
+Product.hasMany(CartItem);
+CartItem.belongsTo(Product);
 
 export default CartItem;

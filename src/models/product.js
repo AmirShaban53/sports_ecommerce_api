@@ -1,8 +1,6 @@
 import sequelize from ".";
 import Sequelize from "sequelize";
 
-import Category from "./category";
-
 const Product = sequelize.define(
   "product",
   {
@@ -32,11 +30,12 @@ const Product = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: true,
     },
+    categories: {
+      type: Sequelize.ARRAY(Sequelize.STRING),
+      allowNull: true,
+    },
   },
   { timestamps: false }
 );
-
-Product.hasMany(Category);
-Category.belongsToMany(Product);
 
 export default Product;

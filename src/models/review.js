@@ -1,6 +1,8 @@
 import sequelize from ".";
 import Sequelize from "sequelize";
-import Product from "./product";
+
+import User from "./User";
+import Product from './product'
 
 const Review = sequelize.define("Review", {
   id: {
@@ -19,7 +21,10 @@ const Review = sequelize.define("Review", {
   },
 });
 
-Product.hasMany(Review, { onDelte: "cascade" });
+Product.hasMany(Review);
 Review.belongsTo(Product);
+
+User.hasMany(Review);
+Review.belongsTo(User);
 
 export default Review;
