@@ -14,14 +14,19 @@ const viewProducts = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
+    const urls = req.files.map((image) => {
+      return image.path;
+    });
     const newProduct = {
       name: "name",
       price: 15,
       rating: 3,
+      images: urls,
       description: "this is a product",
       categories: ["cat1", "cat2", "cat3"],
     };
     await Product.create(newProduct);
+
     logger.info("create a new product");
     res.status(201).json("create a new product");
   } catch (error) {

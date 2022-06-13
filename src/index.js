@@ -16,6 +16,7 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.json("welcome to the sports ecommerce API");
 });
+app.use('/uploads', express.static('uploads'))
 
 app.use('/products', Products);
 app.use('/checkout', Checkout);
