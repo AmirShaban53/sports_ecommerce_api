@@ -26,7 +26,7 @@ const dbConnect = async () => {
 
     await sequelize.authenticate();
     logger.info("connected to dev database");
-    sequelize.sync({ });
+    sequelize.sync({});
   } catch (error) {
     logger.error(error);
   }

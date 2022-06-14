@@ -5,12 +5,16 @@ const storage = multer.diskStorage({
     cb(null, "./uploads");
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    cb(null, file.originalname); 
   },
 });
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === "image/jpg" || file.mimetype === "image/png")
+  if (
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpeg"
+  )
     cb(null, true);
   else {
     cb(new Error("only images are allowed"), false);

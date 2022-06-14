@@ -30,10 +30,10 @@ const Product = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: true,
     },
-    categories: {
-      type: Sequelize.ARRAY(Sequelize.STRING),
-      allowNull: true,
-    },
+    // categories: {
+    //   type: Sequelize.ARRAY(Sequelize.STRING),
+    //   allowNull: true,
+    // },
   },
   { timestamps: false }
 );
