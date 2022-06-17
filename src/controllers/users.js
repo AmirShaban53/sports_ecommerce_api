@@ -17,73 +17,42 @@ const viewAllUsers = async (req, res) => {
   }
 };
 
-const createNewUser = async (req, res) => {
-  try {
-    const { username, email, password } = req.body;
-
-    const user = await User.findAll({ where: { email: email } });
-    if (user.length >= 1) {
-      logger.info("this email already exists");
-      return res.status(401).json({ message: "auth failed" });
-    } else {
-      bcrypt.hash(password, 10, async (error, hash) => {
-        try {
-          if (error) {
-            logger.info("failed to hash password");
-            return res.status(500).json({ message: "operation failed" });
-          } else {
-            const newUser = {
-              username: username,
-              email: email,
-              password: hash,
-              role: "USER",
-            };
-            await User.create(newUser);
-            logger.info("create new user");
-            return res.status(201).json({ message: "created new user" });
-          }
-        } catch (error) {
-          logger.error(error);
-          return res.status(500).json({ error: error.message });
-        }
-      });
-    }
-  } catch (error) {
-    logger.error(error);
-    return res.status(500).json({ error: error.message });
-  }
-};
-
 const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, email, image, role } = req.body;
 
     const user = await User.findOne({ where: { email: email } });
     if (user === undefined || user === null) {
-      logger.error("user doesnot exist");
-      return res.status(404).json({ message: "auth failed" });
+      const newUserObj = {
+        username: username,
+        email: email,
+        profileImage: image,
+        role: role,
+      };
+      const newUser = await User.create(newUserObj);
+      logger.info("create new user");
+
+      const token = JWT.sign(
+        {
+          id: newUser.id,
+          role: newUser.role,
+        },
+        process.env.JWT_KEY,
+        { expiresIn: "3hr" }
+      );
+      logger.info("logging in user");
+      return res.status(200).json({ message: "user logged in", token: token });
     } else {
-      bcrypt.compare(password, user.password, (error, result) => {
-        if (error) {
-          logger.error(error);
-          return res.status(404).json({ message: "auth failed" });
-        }
-        if (result) {
-          const token = JWT.sign(
-            {
-              id: user.id,
-              email: user.email,
-              role: user.role,
-            },
-            process.env.JWT_KEY,
-            { expiresIn: "3hr" }
-          );
-          logger.info("user logged in");
-          return res
-            .status(201)
-            .json({ message: "user logged in", token: token });
-        }
-      });
+      const token = JWT.sign(
+        {
+          id: user.id,
+          role: user.role,
+        },
+        process.env.JWT_KEY,
+        { expiresIn: "3hr" }
+      );
+      logger.info("user logged in");
+      return res.status(201).json({ message: "user logged in", token: token });
     }
   } catch (error) {
     logger.error(error);
@@ -122,4 +91,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { viewAllUsers, createNewUser, loginUser, editUserDetails, deleteUser };
+export { viewAllUsers, loginUser, editUserDetails, deleteUser };

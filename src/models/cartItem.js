@@ -21,6 +21,10 @@ const CartItem = sequelize.define(
       type: Sequelize.FLOAT,
       allowNull: false,
     },
+    image: {
+      type: Sequelize.TEXT,
+      allowNull: true,
+    },
     qunatity: {
       type: Sequelize.INTEGER,
       allowNull: true,

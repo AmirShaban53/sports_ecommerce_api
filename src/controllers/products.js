@@ -5,7 +5,7 @@ import ProductCat from "../models/productCat";
 
 const viewProducts = async (req, res) => {
   try {
-    const products = await Product.findAll({});
+    const products = await Product.findAll({ include: Category });
     logger.info("list all products");
     res.status(200).json(products);
   } catch (error) {
@@ -21,17 +21,24 @@ const createProduct = async (req, res) => {
     });
     const newProduct = {
       name: req.body.name,
-      price: req.body.price,
+      price: req.body.price * 100,
       rating: 3,
       images: urls,
       description: req.body.description,
     };
     const createdproduct = await Product.create(newProduct);
-    const cat = await Category.findOne({ where: { name: req.body.category } });
+    req.body.category.forEach(async (category) => {
+      try {
+        const cat = await Category.findOne({ where: { name: category } });
 
-    await ProductCat.create({
-      productId: createdproduct.id,
-      categoryId: cat.id,
+        await ProductCat.create({
+          productId: createdproduct.id,
+          categoryId: cat.id,
+        });
+      } catch (error) {
+        logger.error(error.message);
+        return res.status(500).json({ error: error.message });
+      }
     });
 
     logger.info("create a new product");

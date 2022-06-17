@@ -1,12 +1,16 @@
 import logger from "../middleware/logger";
 import CartItem from "../models/CartItem";
+import User from "../models/User";
+import Product from "../models/product";
 
 const viewAllItems = async (req, res) => {
   try {
-    const cartItems = await CartItem.findAll({});
+    const { useremail } = req.headers;
+    const user = await User.findOne({ where: { email: useremail } });
+    const cartItems = await CartItem.findAll({ where: { userId: user.id } });
 
     logger.info("list all cart items");
-    return res.status(201).json({ cart_items: cartItems });
+    return res.status(201).json(cartItems);
   } catch (error) {
     logger.error(error);
     return res.status(500).json({ error: error.message });
@@ -15,12 +19,19 @@ const viewAllItems = async (req, res) => {
 
 const addCartItem = async (req, res) => {
   try {
+    const { product } = req.body;
+    const { useremail } = req.headers;
+    const user = await User.findOne({ where: { email: useremail } });
+    const seletedProduct = await Product.findOne({ where: { id: product.id } });
+
     const newCartItem = {
-      name: "cartitem",
-      price: 15.0,
+      name: seletedProduct.name,
+      price: seletedProduct.price,
       quantity: 1,
+      image: seletedProduct.images[0],
+      productId: seletedProduct.id,
     };
-    await CartItem.create(newCartItem);
+    await user.createCartItem(newCartItem);
 
     logger.info("item added to cart");
     return res.status(201).json({ message: "item added to cart" });
