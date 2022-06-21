@@ -26,23 +26,28 @@ const createProduct = async (req, res) => {
       images: urls,
       description: req.body.description,
     };
-    const createdproduct = await Product.create(newProduct);
-    req.body.category.forEach(async (category) => {
-      try {
-        const cat = await Category.findOne({ where: { name: category } });
-
-        await ProductCat.create({
-          productId: createdproduct.id,
-          categoryId: cat.id,
-        });
-      } catch (error) {
-        logger.error(error.message);
-        return res.status(500).json({ error: error.message });
-      }
-    });
-
-    logger.info("create a new product");
-    res.status(201).json("create a new product");
+    if (req.body.category) {
+      const createdproduct = await Product.create(newProduct);
+      req.body.category.forEach(async (category) => {
+        try {
+          const cat = await Category.findOne({ where: { name: category } });
+          if (cat !== undefined || cat !== null) {
+            await ProductCat.create({
+              productId: createdproduct.id,
+              categoryId: cat.id,
+            });
+          }
+        } catch (error) {
+          logger.error(error.message);
+          return res.status(500).json({ error: error.message });
+        }
+      });
+      logger.info("create a new product");
+      return res.status(201).json("create a new product");
+    } else {
+      logger.error("not category found");
+      return res.status(500).json("not category found");
+    }
   } catch (error) {
     logger.error(error.message);
     return res.status(500).json({ error: error.message });
@@ -78,14 +83,14 @@ const deleteProduct = async (req, res) => {
   try {
     const id = req.params.id;
     const product = await Product.findOne({ where: { id: id } });
-    if (product) {
-      await Product.destroy({ where: { id: id } });
-      logger.info("delete a product");
-      return res.status(200).json("delete a product");
-    } else {
-      logger.info("delete a product");
-      return res.status(500).json("product not found in database");
-    }
+    // if (product) {
+    await Product.destroy({ where: { id: id } });
+    logger.info("delete a product");
+    return res.status(200).json("delete a product");
+    // } else {
+    //   logger.info("failed to delete a product");
+    //   return res.status(500).json("product not found in database");
+    // }
   } catch (error) {
     logger.error(error.message);
     return res.status(500).json({ error: error.message });

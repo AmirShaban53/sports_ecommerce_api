@@ -10,7 +10,7 @@ const viewAllUsers = async (req, res) => {
   try {
     const users = User.findAll({});
     logger.info("all users listed");
-    return res.status(201).json({ users: users });
+    return res.status(200).json({ users: users });
   } catch (error) {
     logger.error(error);
     return res.status(500).json({ error: error.message });
@@ -41,7 +41,7 @@ const loginUser = async (req, res) => {
         { expiresIn: "3hr" }
       );
       logger.info("logging in user");
-      return res.status(200).json({ message: "user logged in", token: token });
+      return res.status(201).json({ message: "user logged in", token: token });
     } else {
       const token = JWT.sign(
         {
@@ -52,7 +52,7 @@ const loginUser = async (req, res) => {
         { expiresIn: "3hr" }
       );
       logger.info("user logged in");
-      return res.status(201).json({ message: "user logged in", token: token });
+      return res.status(200).json({ message: "user logged in", token: token });
     }
   } catch (error) {
     logger.error(error);

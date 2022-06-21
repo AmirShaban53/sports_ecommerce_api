@@ -2,9 +2,9 @@ import express from "express";
 import cors from "cors";
 import logger from "./middleware/logger";
 
+import Categories from "./routes/categories";
 import Products from "./routes/products";
 import Checkout from "./routes/checkout";
-import Categories from "./routes/categories";
 import Users from "./routes/users";
 import Cart from "./routes/cart";
 
@@ -32,3 +32,5 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   logger.info(`server running at http://localhost:${PORT}`);
 });
+
+export default app;

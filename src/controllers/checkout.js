@@ -1,33 +1,28 @@
 import logger from "../middleware/logger";
 import Stripe from "stripe";
 import dotenv from "dotenv";
+import CartItem from "../models/cartItem";
 
 dotenv.config();
 
 const stripe = Stripe(process.env.STRIPE_API_KEY);
 const checkoutCart = async (req, res) => {
   try {
+    const id = req.body.id;
+    const cartItems = await CartItem.findAll({ where: { userId: id } });
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      line_items: [
-        {
+      line_items: cartItems.map((item) => {
+        return {
           price_data: {
             currency: "usd",
-            product_data: { name: "shoe" },
-            unit_amount: 5000,
+            product_data: { name: item.name },
+            unit_amount: item.price,
           },
-          quantity: 3,
-        },
-        {
-          price_data: {
-            currency: "usd",
-            product_data: { name: "racquet" },
-            unit_amount: 15000,
-          },
-          quantity: 1,
-        },
-      ],
+          quantity: item?.quantity || 1,
+        };
+      }),
       success_url: "http://localhost:5000",
       cancel_url: "http://localhost:5000",
     });

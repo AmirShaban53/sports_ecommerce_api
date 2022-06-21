@@ -10,7 +10,7 @@ const viewAllItems = async (req, res) => {
     const cartItems = await CartItem.findAll({ where: { userId: user.id } });
 
     logger.info("list all cart items");
-    return res.status(201).json(cartItems);
+    return res.status(200).json(cartItems);
   } catch (error) {
     logger.error(error);
     return res.status(500).json({ error: error.message });

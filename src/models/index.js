@@ -22,11 +22,16 @@ let sequelize;
 
 const dbConnect = async () => {
   try {
-    sequelize = new Sequelize(devConfig, { pool: pool });
+    if (process.env.NODE_ENV === "test") {
+      sequelize = new Sequelize(testConfig, { pool: pool, logging: false });
+      logger.info("connected to test database");
+    } else {
+      sequelize = new Sequelize(devConfig, { pool: pool, logging: false });
+      logger.info("connected to dev database");
+    }
 
     await sequelize.authenticate();
-    logger.info("connected to dev database");
-    sequelize.sync({});
+    if (process.env.NODE_ENV !== "test") sequelize.sync({});
   } catch (error) {
     logger.error(error);
   }
