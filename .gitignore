@@ -1,6 +1,11 @@
 /node_modules
+
 /logs
+
 /uploads
+
 /coverage
+
 /.nyc_output
+
 .env
