@@ -8,7 +8,8 @@ dotenv.config();
 
 const viewAllUsers = async (req, res) => {
   try {
-    const users = User.findAll({});
+    const users = await User.findAll({});
+
     logger.info("all users listed");
     return res.status(200).json({ users: users });
   } catch (error) {
@@ -41,7 +42,9 @@ const loginUser = async (req, res) => {
         { expiresIn: "3hr" }
       );
       logger.info("logging in user");
-      return res.status(201).json({ message: "user logged in", token: token });
+      return res
+        .status(201)
+        .json({ message: "new user logged in", token: token });
     } else {
       const token = JWT.sign(
         {
