@@ -64,7 +64,10 @@ const createProduct = async (req, res) => {
 const viewProduct = async (req, res) => {
   try {
     const id = req.params.id;
-    const product = await Product.findOne({ where: { id: id } });
+    const product = await Product.findOne({
+      where: { id: id },
+      include: Category,
+    });
     logger.info("view a product");
     res.status(200).json({ product: product });
   } catch (error) {
@@ -110,7 +113,6 @@ const editProduct = async (req, res) => {
     await Product.update(productUpdate, { where: { id: id } });
     logger.info("edit a product");
     res.status(200).json("product edited");
-    // res.status(200).json(productUpdate);
   } catch (error) {
     logger.error(error.message);
     return res.status(500).json({ error: error.message });
@@ -121,7 +123,7 @@ const deleteProduct = async (req, res) => {
   try {
     const id = req.params.id;
     const product = await Product.findOne({ where: { id: id } });
-    // if (product) {
+
     product.images.forEach((image) => {
       unlink(`./${image}`, (err) => {
         if (err) return logger.error(err);
@@ -132,10 +134,6 @@ const deleteProduct = async (req, res) => {
     await Product.destroy({ where: { id: id } });
     logger.info("delete a product");
     return res.status(200).json("delete a product");
-    // } else {
-    //   logger.info("failed to delete a product");
-    //   return res.status(500).json("product not found in database");
-    // }
   } catch (error) {
     logger.error(error.message);
     return res.status(500).json({ error: error.message });

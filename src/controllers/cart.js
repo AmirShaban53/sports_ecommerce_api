@@ -19,15 +19,15 @@ const viewAllItems = async (req, res) => {
 
 const addCartItem = async (req, res) => {
   try {
-    const { product } = req.body;
+    const { productId } = req.params;
     const { useremail } = req.headers;
     const user = await User.findOne({ where: { email: useremail } });
-    const seletedProduct = await Product.findOne({ where: { id: product.id } });
+    const seletedProduct = await Product.findOne({ where: { id: productId } });
 
     const newCartItem = {
       name: seletedProduct.name,
       price: seletedProduct.price,
-      quantity: 1,
+      qunatity: 1,
       image: seletedProduct.images[0],
       productId: seletedProduct.id,
     };
@@ -44,7 +44,12 @@ const addCartItem = async (req, res) => {
 const editCartItem = async (req, res) => {
   try {
     const id = req.params.id;
-    const updatedCartItem = {};
+    const { qunatity } = req.body;
+    let updatedCartItem = {};
+
+    if (qunatity !== undefined || qunatity)
+      updatedCartItem = { ...updatedCartItem, qunatity: qunatity };
+
     await CartItem.update(updatedCartItem, { where: { id: id } });
     logger.info("edit cart item");
     return res.status(201).json({ message: "cart item edited" });
