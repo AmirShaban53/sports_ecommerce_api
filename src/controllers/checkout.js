@@ -4,12 +4,12 @@ import dotenv from "dotenv";
 import CartItem from "../models/cartItem";
 
 dotenv.config();
-
+const BASE_URL = process.env.BASE_URL;
 const stripe = Stripe(process.env.STRIPE_API_KEY);
 const checkoutCart = async (req, res) => {
   try {
-    const id = req.body.id;
-    const cartItems = await CartItem.findAll({ where: { userId: id } });
+    const { userId } = req.params;
+    const cartItems = await CartItem.findAll({ where: { userId: userId } });
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -23,8 +23,8 @@ const checkoutCart = async (req, res) => {
           quantity: item?.quantity || 1,
         };
       }),
-      success_url: "http://localhost:5000",
-      cancel_url: "http://localhost:5000",
+      success_url: BASE_URL,
+      cancel_url: BASE_URL,
     });
     logger.info("items purchased");
     return res.status(201).json({ url: session.url });

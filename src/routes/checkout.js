@@ -3,6 +3,6 @@ import checkoutCart from "../controllers/checkout";
 
 const router = Router();
 
-router.post('/', checkoutCart)
+router.post('/:userId', checkoutCart)
 
 export default router;
