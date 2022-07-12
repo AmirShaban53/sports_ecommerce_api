@@ -23,7 +23,7 @@ const Product = sequelize.define(
       allowNull: true,
     },
     images: {
-      type: Sequelize.ARRAY(Sequelize.TEXT),
+      type: Sequelize.JSONB,
       allowNull: true,
     },
     rating: {
