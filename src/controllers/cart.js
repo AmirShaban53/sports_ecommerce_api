@@ -20,6 +20,7 @@ const viewAllItems = async (req, res) => {
 const addCartItem = async (req, res) => {
   try {
     const { productId } = req.params;
+    const { qunatity } = req.body;
     const { useremail } = req.headers;
     const user = await User.findOne({ where: { email: useremail } });
     const seletedProduct = await Product.findOne({ where: { id: productId } });
@@ -27,7 +28,7 @@ const addCartItem = async (req, res) => {
     const newCartItem = {
       name: seletedProduct.name,
       price: seletedProduct.price,
-      qunatity: 1,
+      qunatity: qunatity ? qunatity : 1,
       image: seletedProduct.images[0],
       productId: seletedProduct.id,
     };

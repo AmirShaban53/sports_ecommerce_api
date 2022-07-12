@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as products from "../controllers/products";
-import imageUpload from "../middleware/imageUploader";
+import {imageUpload} from "../middleware/imageUploader";
 
 const router = Router();
 

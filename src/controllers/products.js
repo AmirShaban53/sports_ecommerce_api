@@ -4,6 +4,9 @@ import Category from "../models/category";
 import ProductCat from "../models/productCat";
 import { unlink } from "fs";
 
+import { uploader } from "../Config/cloudinaryConfig";
+import { dataUri } from "../middleware/imageUploader";
+
 const viewProducts = async (req, res) => {
   try {
     const products = await Product.findAll({ include: Category });
@@ -17,9 +20,17 @@ const viewProducts = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
-    const urls = req.files.map((image) => {
-      return image.path;
-    });
+    // const urls = req.files.map((image) => {
+    //   return image.path;
+    // });
+    let urls = []
+    if(req.files !== undefined || req.files !== null){
+      req.files.forEach(async(image)=>{
+        const imageData = await dataUri(image);
+        const savedImage = await uploader.upload(imageData);
+        urls = [...urls, savedImage.secure_url]
+      })
+    }
     const newProduct = {
       name: req.body.name,
       price: req.body.price * 100,
@@ -50,10 +61,11 @@ const createProduct = async (req, res) => {
         }
       });
       logger.info("create a new product");
-      return res.status(201).json("create a new product");
+    return res.status(201).json("create a new product");
+    
     } else {
-      logger.error("not category found");
-      return res.status(500).json("not category found");
+    logger.error("not category found");
+    return res.status(500).json("not category found");
     }
   } catch (error) {
     logger.error(error.message);
