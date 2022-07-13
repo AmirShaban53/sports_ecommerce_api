@@ -1,4 +1,4 @@
-import chai from "chai";
+const chai = require("chai");
 import chaiHttp from "chai-http";
 import server from "../src/index";
 
