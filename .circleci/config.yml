@@ -4,7 +4,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: "cimg/base:stable"
+      - image: cimg/node:current
         environment:
           PGHOST: 127.0.0.1
           PG_USERNAME: postgres
@@ -41,7 +41,7 @@ jobs:
 
       - run:
           name: running unit tests
-          command: npm run test
+          command: npm run ci:test
 
       - run:
           name: running code coverage

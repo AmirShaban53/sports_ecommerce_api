@@ -10,6 +10,7 @@
   "scripts": {
     "dev": " nodemon --exec babel-node ./src/index.js",
     "test": "set NODE_ENV=test&& mocha --require @babel/register --timeout 10000 --exit",
+    "ci:test": "set NODE_ENV=test&& mocha --ci --require @babel/register --timeout 10000 --exit",
     "coverage": "nyc npm run test"
   },
   "nyc": {
