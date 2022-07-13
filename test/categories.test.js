@@ -7,10 +7,12 @@ import logger from "../src/middleware/logger";
 chai.should();
 chai.use(chaiHttp);
 
+let cat00;
 describe("CATEGORIES ROUTES", () => {
   before(async () => {
     try {
       await Category.sync({ force: true });
+      cat00 = await Category.create({name: "cat00"})
     } catch (error) {
       logger.error(error);
     }
@@ -56,7 +58,7 @@ describe("CATEGORIES ROUTES", () => {
     it("should delete a category", (done) => {
       chai
         .request(server)
-        .delete("/categories")
+        .delete(`/categories/${cat00.id}`)
         .end((error, res) => {
           res.should.have.a.status(200);
           done();

@@ -73,7 +73,7 @@ describe("CART ROUTES", () => {
     it("should not create cartitem", (done) => {
       chai
         .request(server)
-        .post("/cart")
+        .post(`/cart/${product00.id}`)
         .end((error, res) => {
           res.should.have.status(500);
           done();
@@ -82,7 +82,7 @@ describe("CART ROUTES", () => {
     it("should create cartitem", (done) => {
       chai
         .request(server)
-        .post("/cart")
+        .post(`/cart/${product00.id}`)
         .set("useremail", "test@gmail.com")
         .send({ product: product00 })
         .end((error, res) => {
