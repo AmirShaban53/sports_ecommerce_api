@@ -6,7 +6,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: cimg/node:16.15.1
+      - image: circleci/node:16.15.1
         environment:
           PGHOST: 127.0.0.1
           PG_USERNAME: postgres
@@ -51,7 +51,7 @@ jobs:
 
       - store_artifacts:
           path: ./test-results
-          prefix: tests 
+          prefix: tests
       - store_artifacts:
           path: coverage
           prefix: coverage
