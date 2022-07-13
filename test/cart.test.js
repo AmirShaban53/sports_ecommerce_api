@@ -1,12 +1,12 @@
 const chai = require("chai");
-import chaiHttp from "chai-http";
-import server from "../src/index";
+const chaiHttp = require ("chai-http");
+const server = require ("../src/index");
 
-import logger from "../src/middleware/logger";
-import Product from "../src/models/product";
-import User from "../src/models/User";
-import Category from "../src/models/category";
-import CartItem from "../src/models/cartItem";
+const logger = require ("../src/middleware/logger");
+const Product = require ("../src/models/product");
+const User = require ("../src/models/User");
+const Category = require ("../src/models/category");
+const CartItem = require ("../src/models/cartItem");
 
 chai.should();
 chai.use(chaiHttp);
