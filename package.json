@@ -8,7 +8,7 @@
     "npm": "8.11.0"
   },
   "scripts": {
-    "dev": " nodemon --exec babel-node ./src/index.js",
+    "dev": " nodemon ./src/index.js --exec babel-node ",
     "test": "set NODE_ENV=test&& mocha --require @babel/register --timeout 10000 --exit",
     "ci:test": "set NODE_ENV=test&& mocha --ci --require @babel/register --timeout 10000 --exit",
     "coverage": "nyc npm run test"
@@ -26,6 +26,7 @@
     "@babel/core": "^7.18.2",
     "@babel/node": "^7.17.10",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.18.2",
     "@babel/register": "^7.17.7",
     "bcrypt": "^5.0.1",
