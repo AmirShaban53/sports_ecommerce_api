@@ -8,9 +8,9 @@
     "npm": "8.11.0"
   },
   "scripts": {
-    "babel-build": "babel -d ./build ./src -s",
-    "clean": "mkdir build",
-    "build": "npm run clean && npm run babel-build",
+    "build-babel": "babel -d ./build ./src -s",
+    "clean": "rm -rf build && mkdir build",
+    "build": "npm run clean && npm run build-babel",
     "start": "npm run build && node ./build/index.js",
     "dev": " nodemon  --exec babel-node ./src/index.js",
     "test": "set NODE_ENV=test&& mocha --require @babel/register --timeout 10000 --exit",
