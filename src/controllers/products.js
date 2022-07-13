@@ -31,7 +31,7 @@ const createProduct = async (req, res) => {
         urls = [...urls, { [savedImage.public_id]: savedImage.secure_url }];
       }
     }
-    // return res.status(200).json(urls);
+
     const newProduct = {
       name: req.body.name,
       price: req.body.price * 100,
@@ -39,37 +39,36 @@ const createProduct = async (req, res) => {
       images: urls,
       description: req.body.description,
     };
-    // if (req.body.category) {
+    if (req.body.category) {
     const createdproduct = await Product.create(newProduct);
-    //   let categories;
-    //   if (Array.isArray(req.body.category)) {
-    //     categories = [...req.body.category];
-    //   } else {
-    //     categories = [req.body.category];
-    //   }
-    //   categories.forEach(async (category) => {
-    //     try {
-    //       const cat = await Category.findOne({ where: { name: category } });
-    //       if (cat !== undefined || cat !== null) {
-    //         await ProductCat.create({
-    //           productId: createdproduct.id,
-    //           categoryId: cat.id,
-    //         });
-    //       }
-    //     } catch (error) {
-    //       logger.error(error.message);
-    //       return res.status(500).json({ error: error.message });
-    //     }
-    //   });
-    //   logger.info("create a new product");
-    // return res.status(201).json("create a new product");
-    return res.status(201).json(newProduct);
+      let categories;
+      if (Array.isArray(req.body.category)) {
+        categories = [...req.body.category];
+      } else {
+        categories = [req.body.category];
+      }
+      categories.forEach(async (category) => {
+        try {
+          const cat = await Category.findOne({ where: { name: category } });
+          if (cat !== undefined || cat !== null) {
+            await ProductCat.create({
+              productId: createdproduct.id,
+              categoryId: cat.id,
+            });
+          }
+        } catch (error) {
+          logger.error(error.message);
+          return res.status(500).json({ error: error.message });
+        }
+      });
+      logger.info("create a new product");
+    return res.status(201).json("create a new product");
 
-    // }
-    //  else {
-    // logger.error("not category found");
-    // return res.status(500).json("not category found");
-    // }
+    }
+     else {
+    logger.error("not category found");
+    return res.status(500).json("not category found");
+    }
   } catch (error) {
     logger.error(error.message);
     return res.status(500).json({ error: error.message });
