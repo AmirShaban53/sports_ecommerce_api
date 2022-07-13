@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "REST API for sports ecommerce site",
   "main": "index.js",
+  "engines": {
+    "node": "16.15.1",
+    "npm": "8.11.0"
+  },
   "scripts": {
     "dev": " nodemon --exec babel-node ./src/index.js",
     "test": "set NODE_ENV=test&& mocha --require @babel/register --timeout 10000 --exit",
