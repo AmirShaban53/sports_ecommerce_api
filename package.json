@@ -3,14 +3,10 @@
   "version": "1.0.0",
   "description": "REST API for sports ecommerce site",
   "main": "index.js",
-  "engines": {
-    "node": "16.X",
-    "npm": "8.X"
-  },
   "scripts": {
     "dev": " nodemon --exec babel-node ./src/index",
     "build-babel": "babel -d ./build ./src -s",
-    "clean": "rm -rf ./build && mkdir build",
+    "clean": "rm -rf build && mkdir build",
     "build": "npm run clean && npm run build-babel",
     "start": "npm run build && node ./build/index",
     "test": "set NODE_ENV=test&& mocha --require @babel/register --timeout 10000 --exit",

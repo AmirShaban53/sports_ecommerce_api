@@ -1,4 +1,4 @@
-import Express from "express";
+import express from "express";
 import cors from "cors";
 import logger from "./middleware/logger";
 import { cloudinaryConfig } from "./Config/cloudinaryConfig";
@@ -10,9 +10,9 @@ import Users from "./routes/users";
 import Cart from "./routes/cart";
 
 const PORT = process.env.PORT || 5000;
-const app = Express();
+const app = express();
 
-app.use(Express.json());
+app.use(express.json());
 app.use(cors());
 app.use('*', cloudinaryConfig)
 
