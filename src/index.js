@@ -10,6 +10,7 @@ import Users from "./routes/users";
 import Cart from "./routes/cart";
 
 const PORT = process.env.PORT || 5000;
+
 const app = express();
 
 app.use(express.json());
@@ -19,7 +20,7 @@ app.use('*', cloudinaryConfig)
 app.get("/", (req, res) => {
   res.json("welcome to the sports ecommerce API");
 });
-app.use("/uploads", Express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
 
 app.use("/categories", Categories);
 app.use("/products", Products);
