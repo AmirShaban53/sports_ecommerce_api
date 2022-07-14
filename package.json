@@ -11,10 +11,8 @@
     "build-babel": "babel -d ./build ./src -s",
     "clean": "rm -rf build && mkdir build",
     "build": "npm run clean && npm run build-babel",
-    "start": "npm run build && babel-node ./build/index.js",
-    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
-    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production;",
-    "dev": " nodemon --exec babel-node ./src/index.js",
+    "start": "npm run build && node ./build/index",
+    "dev": " nodemon --exec babel-node ./src/index",
     "test": "set NODE_ENV=test&& mocha --require @babel/register --timeout 10000 --exit",
     "coverage": "nyc npm run test"
   },
