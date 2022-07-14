@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "REST API for sports ecommerce site",
   "main": "index.js",
+  "engines": {
+    "node": "16.X",
+    "npm": "8.X"
+  },
   "scripts": {
     "build-babel": "babel -d ./build ./src -s",
     "clean": "rm -rf build && mkdir build",
