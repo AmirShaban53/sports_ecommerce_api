@@ -8,7 +8,7 @@
     "start": "npm run build && node ./build/index.js",
     "build": "npm run clean && npm run build-babel",
     "build-babel": "babel -d ./build ./src -s",
-    "clean": "rm -rf build && mkdir build",
+    "clean": " mkdir build",
     "test": "set NODE_ENV=test&& mocha --require @babel/register --timeout 10000 --exit",
     "coverage": "nyc npm run test"
   },
