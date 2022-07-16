@@ -3,7 +3,7 @@ import checkoutCart from "../controllers/checkout";
 
 const router = Router();
 
-router.post("/", checkoutCart);
+router.get("/", checkoutCart);
 
 
 export default router;

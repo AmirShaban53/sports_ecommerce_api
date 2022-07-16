@@ -12,6 +12,7 @@ const stripe = Stripe(process.env.STRIPE_API_KEY);
 const checkoutCart = async (req, res) => {
   try {
     const { useremail } = req.headers;
+
     const user = await User.findOne({ where: { email: useremail } });
     const cartItems = await CartItem.findAll({
       where: { userId: user.id },
@@ -34,7 +35,6 @@ const checkoutCart = async (req, res) => {
     });
     logger.info("items purchased");
     return res.status(201).json({ url: session.url });
-    // return res.status(201).json({ user, cartItems });
   } catch (error) {
     logger.error(error);
     return res.status(500).json({ error: error.message });
