@@ -1,11 +1,16 @@
 import { Router } from "express";
-import * as cart from "../controllers/cart";
+import {
+  viewAllItems,
+  addCartItem,
+  editCartItem,
+  deleteCartItem,
+} from "../controllers/cart";
 
 const router = Router();
 
-router.get("/", cart.viewAllItems);
-router.post("/:productId", cart.addCartItem);
-router.patch("/:id", cart.editCartItem);
-router.delete("/:id", cart.deleteCartItem);
+router.get("/", viewAllItems);
+router.post("/:productId", addCartItem);
+router.patch("/:id", editCartItem);
+router.delete("/:id", deleteCartItem);
 
 export default router;
