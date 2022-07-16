@@ -9,7 +9,9 @@
     "build": "npm run clean && npm run build-babel",
     "start": "npm run build && node ./build/index.js",
     "dev": "nodemon --exec babel-node ./src/index.js",
-    "test": "set NODE_ENV=test&& mocha --require @babel/register --timeout 10000 --exit"
+    "test": "set NODE_ENV=test&& mocha --require @babel/register --timeout 10000 --exit",
+    "coverage": "nyc npm run test"
+
   },
   "keywords": [],
   "author": "shaban",
