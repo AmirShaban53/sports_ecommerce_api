@@ -24,12 +24,12 @@ const addCartItem = async (req, res) => {
     const { useremail } = req.headers;
     const user = await User.findOne({ where: { email: useremail } });
     const seletedProduct = await Product.findOne({ where: { id: productId } });
-
+    const cardItemImage = Object.values(seletedProduct.images[0])[0]
     const newCartItem = {
       name: seletedProduct.name,
       price: seletedProduct.price,
       qunatity: qunatity ? qunatity : 1,
-      image: seletedProduct.images[0],
+      image: cardItemImage,
       productId: seletedProduct.id,
     };
     await user.createCartItem(newCartItem);

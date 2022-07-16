@@ -6,6 +6,7 @@ import User from "../models/User";
 
 dotenv.config();
 const BASE_URL = process.env.BASE_URL;
+const CLIENT_URL = process.env.CLIENT_URL;
 const stripe = Stripe(process.env.STRIPE_API_KEY);
 
 const checkoutCart = async (req, res) => {
@@ -28,12 +29,12 @@ const checkoutCart = async (req, res) => {
           quantity: item?.quantity || 1,
         };
       }),
-      success_url: BASE_URL,
-      cancel_url: BASE_URL,
+      success_url: CLIENT_URL,
+      cancel_url: CLIENT_URL,
     });
     logger.info("items purchased");
-    // return res.status(201).json({ url: session.url });
-    return res.status(201).json({ user, cartItems });
+    return res.status(201).json({ url: session.url });
+    // return res.status(201).json({ user, cartItems });
   } catch (error) {
     logger.error(error);
     return res.status(500).json({ error: error.message });
