@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as categories from "../controllers/categories";
+
 const router = Router();
 
 router.get("/", categories.listCategories);
