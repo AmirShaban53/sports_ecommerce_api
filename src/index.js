@@ -1,6 +1,6 @@
 import Express from "express";
 import cors from "cors";
-// import logger from "./middleware/logger";
+import logger from "./middleware/logger";
 // import { cloudinaryConfig } from "./Config/cloudinaryConfig";
 
 // import Categories from "./routes/categories";
@@ -33,7 +33,7 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`server running at http://localhost:${PORT}`);
+  logger.info(`server running at http://localhost:${PORT}`);
 });
 
 export default app;
