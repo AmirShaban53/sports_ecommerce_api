@@ -1,7 +1,7 @@
 import sequelize from ".";
 import Sequelize from "sequelize";
 
-import User from "./user";
+import User from "./User";
 import Product from "./product";
 
 const CartItem = sequelize.define(

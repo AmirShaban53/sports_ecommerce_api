@@ -1,5 +1,5 @@
 import logger from "../middleware/logger";
-import User from "../models/user";
+import User from "../models/User";
 import bcrypt from "bcrypt";
 import JWT from "jsonwebtoken";
 import dotenv from "dotenv";
