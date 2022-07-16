@@ -3,11 +3,11 @@ import cors from "cors";
 import logger from "./middleware/logger";
 // import { cloudinaryConfig } from "./Config/cloudinaryConfig";
 
-// import Categories from "./routes/categories";
-// import Products from "./routes/products";
-// import Checkout from "./routes/checkout";
-// import Users from "./routes/users";
-// import Cart from "./routes/cart";
+import Categories from "./routes/categories";
+import Products from "./routes/products";
+import Checkout from "./routes/checkout";
+import Users from "./routes/users";
+import Cart from "./routes/cart";
 
 const PORT = process.env.PORT || 5000;
 
@@ -22,11 +22,11 @@ app.get("/", (req, res) => {
 });
 // app.use("/uploads", Express.static("uploads"));
 
-// app.use("/categories", Categories);
-// app.use("/products", Products);
-// app.use("/checkout", Checkout);
-// app.use("/users", Users);
-// app.use("/cart", Cart);
+app.use("/categories", Categories);
+app.use("/products", Products);
+app.use("/checkout", Checkout);
+app.use("/users", Users);
+app.use("/cart", Cart);
 
 app.use((req, res) => {
   res.status(404).json({ message: "route not found!" });
