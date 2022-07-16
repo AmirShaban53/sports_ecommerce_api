@@ -4,7 +4,7 @@ import Category from "../models/category";
 import ProductCat from "../models/productCat";
 import { unlink } from "fs";
 
-import { uploader } from "../Config/cloudinaryConfig";
+import { uploader } from "../config/cloudinaryConfig";
 import { dataUri } from "../middleware/imageUploader";
 
 const viewProducts = async (req, res) => {
