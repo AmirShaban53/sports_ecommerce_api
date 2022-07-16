@@ -1,11 +1,9 @@
 import { Router } from "express";
-// import checkoutCart from "../controllers/checkout";
+import checkoutCart from "../controllers/checkout";
 
 const router = Router();
 
-// router.post("/", checkoutCart);
-
-router.get("/", (req, res)=>{res.json({message: "we are home"})})
+router.post("/", checkoutCart);
 
 
 export default router;
