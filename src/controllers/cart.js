@@ -1,6 +1,6 @@
 import logger from "../middleware/logger";
-import CartItem from "../models/CartItem";
-import User from "../models/User";
+import CartItem from "../models/cartItem";
+import User from "../models/user";
 import Product from "../models/product";
 
 const viewAllItems = async (req, res) => {
