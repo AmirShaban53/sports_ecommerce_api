@@ -18,7 +18,7 @@ const app = Express();
 // app.use("*", cloudinaryConfig);
 
 app.get("/", (req, res) => {
-  res.send("welcome to the sports ecommerce API");
+  res.send("welcome to the sports ecommercdfds API");
 });
 // app.use("/uploads", Express.static("uploads"));
 
