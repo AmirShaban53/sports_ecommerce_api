@@ -1,7 +1,7 @@
 {
   "name": "sports-ecommerce-api",
   "version": "1.0.0",
-  "description": "this is a new description ",
+  "description": "this is another description ",
   "main": "index.js",
   "scripts": {
     "dev": "babel-node ./src/index.js",
