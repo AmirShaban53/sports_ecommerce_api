@@ -1,6 +1,4 @@
 import Express from "express";
-
-
 import cors from "cors";
 import logger from "./middleware/logger";
 import { cloudinaryConfig } from "./Config/cloudinaryConfig";
@@ -17,7 +15,7 @@ const app = Express();
 
 app.use(Express.json());
 app.use(cors());
-app.use('*', cloudinaryConfig)
+app.use("*", cloudinaryConfig);
 
 app.get("/", (req, res) => {
   res.json("welcome to the sports ecommerce API");
