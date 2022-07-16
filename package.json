@@ -1,7 +1,7 @@
 {
   "name": "sports-ecommerce-api",
   "version": "1.0.0",
-  "description": "this is another description ",
+  "description": "this is an ecommerce rest api",
   "main": "index.js",
   "scripts": {
     "build-babel": "babel -d ./build ./src -s",
