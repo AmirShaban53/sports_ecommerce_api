@@ -29,6 +29,7 @@ const dbConnect = async () => {
     } else if (process.env.NODE_ENV === "production") {
       sequelize = new Sequelize(productionConifg, {
         pool: pool,
+        logging: false,
         dialectOptions: { ssl: { rejectUnauthorized: false } },
       });
     } else {
