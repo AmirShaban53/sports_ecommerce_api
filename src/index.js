@@ -1,4 +1,4 @@
-import Express from "express";
+const Express = require ("express");
 import cors from "cors";
 import logger from "./middleware/logger";
 import { cloudinaryConfig } from "./Config/cloudinaryConfig";
