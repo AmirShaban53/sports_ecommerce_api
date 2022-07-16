@@ -146,8 +146,8 @@ const deleteProduct = async (req, res) => {
     // });
     for (let index = 0; index < product.images.length; index++) {
       const image = product.images[index];
-      const imageId = Object.keys(image);
-      await uploader.destroy(imageId[0]);
+      const imageId = Object.keys(image)[0];
+      await uploader.destroy(imageId);
     }
     await Product.destroy({ where: { id: id } });
     logger.info("delete a product");
