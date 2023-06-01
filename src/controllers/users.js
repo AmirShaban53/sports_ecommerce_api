@@ -20,15 +20,13 @@ const viewAllUsers = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    const { username, email, image, role } = req.body;
+    const { name, email } = req.body;
 
     const user = await User.findOne({ where: { email: email } });
     if (user === undefined || user === null) {
       const newUserObj = {
-        username: username,
+        username: name,
         email: email,
-        profileImage: image,
-        role: role,
       };
       const newUser = await User.create(newUserObj);
       logger.info("create new user");

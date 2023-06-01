@@ -26,7 +26,7 @@ const checkoutCart = async (req, res) => {
             product_data: { name: item.name },
             unit_amount: item.price,
           },
-          quantity: item?.quantity || 1,
+          quantity: item?.qunatity || 1,
         };
       }),
       success_url: CLIENT_URL,
