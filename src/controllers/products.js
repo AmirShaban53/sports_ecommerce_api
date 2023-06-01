@@ -27,7 +27,10 @@ const createProduct = async (req, res) => {
     if (req.files !== undefined || req.files !== null) {
       for (let index = 0; index < req.files.length; index++) {
         const image = await dataUri(req.files[index]);
-        const savedImage = await uploader.upload(image);
+        const savedImage = await uploader.upload(image, {
+          folder: "ecommerce",
+          use_filename: true,
+        });
         urls = [...urls, { [savedImage.public_id]: savedImage.secure_url }];
       }
     }
@@ -39,8 +42,9 @@ const createProduct = async (req, res) => {
       images: urls,
       description: req.body.description,
     };
+    
     if (req.body.category) {
-    const createdproduct = await Product.create(newProduct);
+      const createdproduct = await Product.create(newProduct);
       let categories;
       if (Array.isArray(req.body.category)) {
         categories = [...req.body.category];
@@ -62,12 +66,10 @@ const createProduct = async (req, res) => {
         }
       });
       logger.info("create a new product");
-    return res.status(201).json("create a new product");
-
-    }
-     else {
-    logger.error("not category found");
-    return res.status(500).json("not category found");
+      return res.status(201).json("create a new product");
+    } else {
+      logger.error("not category found");
+      return res.status(500).json("not category found");
     }
   } catch (error) {
     logger.error(error.message);

@@ -13,6 +13,6 @@ const logger = createLogger({
         `${message.timestamp} | [${message.level}] : ${message.message}`
     )
   ),
-});
+}); 
 
 export default logger;

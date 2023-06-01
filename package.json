@@ -4,7 +4,7 @@
   "description": "REST API for sports ecommerce site",
   "main": "index.js",
   "scripts": {
-    "dev": "babel-node ./src/index.js",
+    "dev": "nodemon --exec babel-node ./src/index.js",
     "build-babel": "babel -d ./build ./src -s",
     "clean": "rm -rf build && mkdir build",
     "build": "npm run clean && npm run build-babel",
