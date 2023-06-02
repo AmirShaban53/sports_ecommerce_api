@@ -8,5 +8,6 @@
 
 /.nyc_output
 
+enforssh.txt
 
 .env

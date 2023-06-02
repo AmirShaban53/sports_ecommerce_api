@@ -6,8 +6,8 @@ dotenv.config();
 
 const devConfig = `postgres://${process.env.PG_USERNAME}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DEV_DATABASE}`;
 const testConfig = `postgres://${process.env.PG_USERNAME}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_TEST_DATABASE}`;
-const productionConifg = `postgres://${process.env.PG_USERNAME}:${process.env.PG_PASSWORD}@${process.env.PG_PRO_HOST}:${process.env.PG_PORT}/${process.env.PG_PRO_DATABASE}`;
-// const productionConifg = process.env.DATABASE_URL;
+// const productionConifg = `postgres://${process.env.PG_USERNAME}:${process.env.PG_PASSWORD}@${process.env.PG_PRO_HOST}:${process.env.PG_PORT}/${process.env.PG_PRO_DATABASE}`;
+const productionConifg = process.env.DATABASE_URL;
 
 const pool = {
   min: 0,
